@@ -1,0 +1,88 @@
+<?php
+/**
+ * @file
+ * Code for the Transaction Import feature.
+ */
+
+include_once 'transaction_import_feature.features.inc';
+
+/**
+ * Implements hook_form_alter().
+ */
+function transaction_import_feature_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'feeds_import_form':
+      transaction_import_feature_add_accounts($form, $form_state, $form_id);
+      break;
+  }
+}
+
+/**
+ * Adds account selection to the feeds importer form.
+ *
+ * @param array $form
+ *   Drupal form element.
+ * @param array $form_state
+ *   Drupal form_state element.
+ * @param string $form_id
+ *   The id of the form.
+ */
+function transaction_import_feature_add_accounts(&$form, &$form_state, $form_id) {
+  $options = _transaction_import_feature_get_accounts();
+  $form['feeds']['FeedsCSVParser']['account'] = array(
+    '#type' => 'select',
+    '#title' => t('Account'),
+    '#options' => $options,
+  );
+}
+
+/**
+ * Implements hook_feeds_presave().
+ *
+ * Adds the account term ID to the transactions selected at the import form.
+ *
+ * @inheritdoc
+ */
+function recommendation_helper_feeds_presave(FeedsSource $source, $entity, $item, $entity_id) {
+  $config = $source->getConfig();
+  $account = $config['FeedsCSVParser']['account'];
+
+  if ($account) {
+    $wrapper = entity_metadata_wrapper('node', $entity);
+    $wrapper->field_account->set($account);
+  }
+
+  $counterparty = $wrapper->field_counterparty->value();
+  if ($counterparty) {
+    $recommendations = _transaction_feature_get_recommendations($counterparty);
+    if (count($recommendations)) {
+      //dsm($recommendations, 'r');
+      $recommendations = array_keys($recommendations);
+      //dsm($recommendations, 'rk');
+      $tid = current($recommendations);
+      //dsm($tid, 'tid');
+      $wrapper->field_transaction_category->set($tid);
+    }
+  }
+}
+
+
+
+/**
+ * Fetch all accounts.
+ *
+ * @return array
+ *  Accounts in a format: [<tid> => '<title> - <account number>].
+ */
+function _transaction_import_feature_get_accounts() {
+  $view = views_get_view('accounts');
+  $view->execute();
+
+  $results = array();
+  foreach($view->result as $row) {
+    $title = $row->taxonomy_term_data_name . " - " . $row->field_field_account_number[0]['rendered']['#markup'];
+    $results[$row->tid] = $title;
+  }
+
+  return $results;
+}

@@ -1,0 +1,13 @@
+name = Transaction Import
+core = 7.x
+package = Budget7
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = feeds
+dependencies[] = feeds_tamper
+dependencies[] = transaction_feature
+features[ctools][] = feeds:feeds_importer_default:1
+features[ctools][] = feeds_tamper:feeds_tamper_default:2
+features[features_api][] = api:2
+features[feeds_importer][] = transaction
+features[feeds_tamper][] = transaction-maara-find_replace

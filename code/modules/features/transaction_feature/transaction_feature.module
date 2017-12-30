@@ -1,0 +1,73 @@
+<?php
+/**
+ * @file
+ * Code for the Transaction feature.
+ */
+
+include_once 'transaction_feature.features.inc';
+
+/**
+ * Implements hook_form_alter().
+ */
+function transaction_feature_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id != 'transaction_node_form') {
+    return;
+  }
+
+  transaction_feature_add_recommendations($form, $form_state, $form_id);
+}
+
+/**
+ * Provides the form_alter functionality for adding recommendations.
+ *
+ * @param array $form
+ *   Drupal form element.
+ * @param array $form_state
+ *   Drupal form_state element.
+ * @param string $form_id
+ *   The id of the form.
+ */
+function transaction_feature_add_recommendations(&$form, &$form_state, $form_id) {
+  $search_key = NULL;
+  try {
+    $wrapper = entity_metadata_wrapper('node', $form_state['node']);
+    $search_key = $wrapper->field_counterparty->value();
+  }
+  catch (Exception $e) {
+  }
+
+  $recommendations = _transaction_feature_get_recommendations($search_key);
+  $remove = array_keys(array_intersect_key($recommendations, $form['field_transaction_category'][LANGUAGE_NONE]['#options']));
+  foreach($remove as $r) {
+    unset($form['field_transaction_category'][LANGUAGE_NONE]['#options'][$r]);
+  }
+  $form['field_transaction_category'][LANGUAGE_NONE]['#options'] = ($recommendations += $form['field_transaction_category'][LANGUAGE_NONE]['#options']);
+}
+
+/**
+ * Fetch recommended transaction categories.
+ *
+ * @param string $search_key
+ *   Search key to use for searching.
+ *
+ * @return array
+ *   Recommendations in a format: [<tid> => '<title> (<count>)'].
+ */
+function _transaction_feature_get_recommendations($search_key) {
+  $view = views_get_view('relevant_categories');
+  $view->set_display('block');
+  $view->set_arguments(array($search_key));
+  $view->execute();
+
+  $results = array();
+  foreach($view->result as $row) {
+    // Skip illegal results.
+    if (!isset($row->taxonomy_term_data_field_data_field_transaction_category_tid)) {
+      continue;
+    }
+    $title = $row->taxonomy_term_data_field_data_field_transaction_category_nam . " (" . $row->taxonomy_term_data_field_data_field_transaction_category_tid_1  . ")";
+    $results[$row->taxonomy_term_data_field_data_field_transaction_category_tid] = $title;
+  }
+
+  return $results;
+}
