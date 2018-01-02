@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the Account feature.
  */
+
+include_once 'account_feature.features.inc';
