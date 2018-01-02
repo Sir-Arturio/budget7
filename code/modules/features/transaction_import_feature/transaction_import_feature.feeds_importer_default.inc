@@ -104,6 +104,17 @@ function transaction_import_feature_feeds_importer_default() {
             'unique' => FALSE,
             'language' => 'und',
           ),
+          10 => array(
+            'source' => 'Laji',
+            'target' => 'field_transaction_type_number',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          11 => array(
+            'source' => 'Selitys',
+            'target' => 'field_transaction_type',
+            'unique' => FALSE,
+          ),
         ),
         'insert_new' => '1',
         'update_existing' => '2',
