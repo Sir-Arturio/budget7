@@ -39,29 +39,30 @@ function transaction_import_feature_add_accounts(&$form, &$form_state, $form_id)
 /**
  * Implements hook_feeds_presave().
  *
- * Adds the account term ID to the transactions selected at the import form.
+ * - Adds the account term ID to the transactions selected at the import form.
+ * - Adds a transaction category to the transaction.
  *
  * @inheritdoc
  */
 function transaction_import_feature_feeds_presave(FeedsSource $source, $entity, $item, $entity_id) {
   $config = $source->getConfig();
-  $account = $config['FeedsCSVParser']['account'];
-
   $wrapper = entity_metadata_wrapper('node', $entity);
 
+  // Add account to the transaction if available.
+  $account = $config['FeedsCSVParser']['account'];
   if ($account) {
     $wrapper->field_account->set($account);
   }
 
+  // Add transaction category based on the recommendation
+  // but only if the transaction does not yet have a category.
   $counterparty = $wrapper->field_counterparty->value();
-  if ($counterparty) {
+  $category = $wrapper->field_transaction_category->value();
+  if ($counterparty && !$category) {
     $recommendations = _transaction_feature_get_recommendations($counterparty);
     if (count($recommendations)) {
-      //dsm($recommendations, 'r');
       $recommendations = array_keys($recommendations);
-      //dsm($recommendations, 'rk');
       $tid = current($recommendations);
-      //dsm($tid, 'tid');
       $wrapper->field_transaction_category->set($tid);
     }
   }
