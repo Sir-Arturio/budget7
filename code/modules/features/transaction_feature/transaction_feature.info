@@ -4,6 +4,7 @@ package = Budget7
 version = 7.x-1.0
 dependencies[] = account_feature
 dependencies[] = date
+dependencies[] = entity
 dependencies[] = number
 dependencies[] = text
 dependencies[] = views
