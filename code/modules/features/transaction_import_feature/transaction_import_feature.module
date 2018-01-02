@@ -43,12 +43,13 @@ function transaction_import_feature_add_accounts(&$form, &$form_state, $form_id)
  *
  * @inheritdoc
  */
-function recommendation_helper_feeds_presave(FeedsSource $source, $entity, $item, $entity_id) {
+function transaction_import_feature_feeds_presave(FeedsSource $source, $entity, $item, $entity_id) {
   $config = $source->getConfig();
   $account = $config['FeedsCSVParser']['account'];
 
+  $wrapper = entity_metadata_wrapper('node', $entity);
+
   if ($account) {
-    $wrapper = entity_metadata_wrapper('node', $entity);
     $wrapper->field_account->set($account);
   }
 
