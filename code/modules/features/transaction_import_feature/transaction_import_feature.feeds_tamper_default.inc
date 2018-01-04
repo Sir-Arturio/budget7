@@ -13,9 +13,9 @@ function transaction_import_feature_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
-  $feeds_tamper->id = 'transaction-maara-find_replace';
+  $feeds_tamper->id = 'transaction-m__r___euroa-find_replace';
   $feeds_tamper->importer = 'transaction';
-  $feeds_tamper->source = 'Maara';
+  $feeds_tamper->source = 'Määrä  EUROA';
   $feeds_tamper->plugin_id = 'find_replace';
   $feeds_tamper->settings = array(
     'find' => ',',
@@ -28,7 +28,7 @@ function transaction_import_feature_feeds_tamper_default() {
   );
   $feeds_tamper->weight = 0;
   $feeds_tamper->description = 'Find replace';
-  $export['transaction-maara-find_replace'] = $feeds_tamper;
+  $export['transaction-m__r___euroa-find_replace'] = $feeds_tamper;
 
   return $export;
 }
