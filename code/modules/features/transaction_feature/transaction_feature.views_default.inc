@@ -101,5 +101,412 @@ function transaction_feature_views_default_views() {
   $handler = $view->new_display('block', 'Block', 'block');
   $export['relevant_categories'] = $view;
 
+  $view = new view();
+  $view->name = 'transactions';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Transactions';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
+  $handler->display->display_options['exposed_form']['options']['bef'] = array(
+    'general' => array(
+      'input_required' => 0,
+      'text_input_required' => array(
+        'text_input_required' => array(
+          'value' => 'Select any filter and click on Apply to see results',
+          'format' => 'filtered_html',
+        ),
+      ),
+      'allow_secondary' => 0,
+      'secondary_label' => 'Advanced options',
+      'secondary_collapse_override' => '0',
+    ),
+    'pager' => array(
+      'bef_format' => 'default',
+      'is_secondary' => 0,
+    ),
+    'field_counterparty_value' => array(
+      'bef_format' => 'default',
+      'more_options' => array(
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+      ),
+    ),
+    'field_amount_value' => array(
+      'bef_format' => 'default',
+      'slider_options' => array(
+        'bef_slider_min' => '0',
+        'bef_slider_max' => '99999',
+        'bef_slider_step' => '1',
+        'bef_slider_animate' => '',
+        'bef_slider_orientation' => 'horizontal',
+      ),
+      'more_options' => array(
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+      ),
+    ),
+    'field_amount_value_1' => array(
+      'bef_format' => 'default',
+      'slider_options' => array(
+        'bef_slider_min' => '0',
+        'bef_slider_max' => '99999',
+        'bef_slider_step' => '1',
+        'bef_slider_animate' => '',
+        'bef_slider_orientation' => 'horizontal',
+      ),
+      'more_options' => array(
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+      ),
+    ),
+    'date_filter' => array(
+      'bef_format' => 'bef_datepicker',
+      'more_options' => array(
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+        'datepicker_options' => '',
+      ),
+    ),
+    'date_filter_1' => array(
+      'bef_format' => 'bef_datepicker',
+      'more_options' => array(
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+        'datepicker_options' => '',
+      ),
+    ),
+    'field_transaction_category_tid' => array(
+      'bef_format' => 'default',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_select_all_none_nested' => 1,
+        'bef_term_description' => 0,
+        'bef_collapsible' => 0,
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+      ),
+    ),
+    'field_transaction_category_tid_1' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 1,
+        'bef_collapsible' => 0,
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+      ),
+    ),
+  );
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '20, 50, 100, 200';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = TRUE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'nid' => 'nid',
+    'field_transaction_id' => 'field_transaction_id',
+    'field_counterparty' => 'field_counterparty',
+    'field_amount' => 'field_amount',
+    'field_transaction_category' => 'field_transaction_category',
+    'field_value_date' => 'field_value_date',
+  );
+  $handler->display->display_options['style_options']['default'] = 'field_value_date';
+  $handler->display->display_options['style_options']['info'] = array(
+    'nid' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_transaction_id' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_counterparty' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_amount' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => 'views-align-right',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_transaction_category' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_value_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['sticky'] = TRUE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Transaction ID */
+  $handler->display->display_options['fields']['field_transaction_id']['id'] = 'field_transaction_id';
+  $handler->display->display_options['fields']['field_transaction_id']['table'] = 'field_data_field_transaction_id';
+  $handler->display->display_options['fields']['field_transaction_id']['field'] = 'field_transaction_id';
+  $handler->display->display_options['fields']['field_transaction_id']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_transaction_id']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_transaction_id']['alter']['path'] = 'node/[nid]';
+  $handler->display->display_options['fields']['field_transaction_id']['alter']['alt'] = '[field_transaction_id]';
+  /* Field: Content: Counterparty */
+  $handler->display->display_options['fields']['field_counterparty']['id'] = 'field_counterparty';
+  $handler->display->display_options['fields']['field_counterparty']['table'] = 'field_data_field_counterparty';
+  $handler->display->display_options['fields']['field_counterparty']['field'] = 'field_counterparty';
+  /* Field: Content: Amount */
+  $handler->display->display_options['fields']['field_amount']['id'] = 'field_amount';
+  $handler->display->display_options['fields']['field_amount']['table'] = 'field_data_field_amount';
+  $handler->display->display_options['fields']['field_amount']['field'] = 'field_amount';
+  $handler->display->display_options['fields']['field_amount']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_amount']['settings'] = array(
+    'thousand_separator' => '',
+    'decimal_separator' => '.',
+    'scale' => '2',
+    'prefix_suffix' => 1,
+  );
+  /* Field: Content: Transaction Category */
+  $handler->display->display_options['fields']['field_transaction_category']['id'] = 'field_transaction_category';
+  $handler->display->display_options['fields']['field_transaction_category']['table'] = 'field_data_field_transaction_category';
+  $handler->display->display_options['fields']['field_transaction_category']['field'] = 'field_transaction_category';
+  $handler->display->display_options['fields']['field_transaction_category']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_transaction_category']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Value date */
+  $handler->display->display_options['fields']['field_value_date']['id'] = 'field_value_date';
+  $handler->display->display_options['fields']['field_value_date']['table'] = 'field_data_field_value_date';
+  $handler->display->display_options['fields']['field_value_date']['field'] = 'field_value_date';
+  $handler->display->display_options['fields']['field_value_date']['settings'] = array(
+    'format_type' => 'custom',
+    'custom_date_format' => 'd.m.Y',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_remaining_days' => 0,
+  );
+  /* Field: Content: Account */
+  $handler->display->display_options['fields']['field_account']['id'] = 'field_account';
+  $handler->display->display_options['fields']['field_account']['table'] = 'field_data_field_account';
+  $handler->display->display_options['fields']['field_account']['field'] = 'field_account';
+  $handler->display->display_options['fields']['field_account']['type'] = 'taxonomy_term_reference_plain';
+  /* Sort criterion: Content: Value date (field_value_date) */
+  $handler->display->display_options['sorts']['field_value_date_value']['id'] = 'field_value_date_value';
+  $handler->display->display_options['sorts']['field_value_date_value']['table'] = 'field_data_field_value_date';
+  $handler->display->display_options['sorts']['field_value_date_value']['field'] = 'field_value_date_value';
+  $handler->display->display_options['sorts']['field_value_date_value']['expose']['label'] = 'Value date';
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'transaction' => 'transaction',
+  );
+  /* Filter criterion: Content: Counterparty (field_counterparty) */
+  $handler->display->display_options['filters']['field_counterparty_value']['id'] = 'field_counterparty_value';
+  $handler->display->display_options['filters']['field_counterparty_value']['table'] = 'field_data_field_counterparty';
+  $handler->display->display_options['filters']['field_counterparty_value']['field'] = 'field_counterparty_value';
+  $handler->display->display_options['filters']['field_counterparty_value']['operator'] = 'word';
+  $handler->display->display_options['filters']['field_counterparty_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_counterparty_value']['expose']['operator_id'] = 'field_counterparty_value_op';
+  $handler->display->display_options['filters']['field_counterparty_value']['expose']['label'] = 'Counterparty';
+  $handler->display->display_options['filters']['field_counterparty_value']['expose']['operator'] = 'field_counterparty_value_op';
+  $handler->display->display_options['filters']['field_counterparty_value']['expose']['identifier'] = 'field_counterparty_value';
+  $handler->display->display_options['filters']['field_counterparty_value']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['field_counterparty_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    3 => '3',
+    1 => 0,
+  );
+  /* Filter criterion: Content: Amount (field_amount) */
+  $handler->display->display_options['filters']['field_amount_value']['id'] = 'field_amount_value';
+  $handler->display->display_options['filters']['field_amount_value']['table'] = 'field_data_field_amount';
+  $handler->display->display_options['filters']['field_amount_value']['field'] = 'field_amount_value';
+  $handler->display->display_options['filters']['field_amount_value']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_amount_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_amount_value']['expose']['operator_id'] = 'field_amount_value_op';
+  $handler->display->display_options['filters']['field_amount_value']['expose']['label'] = 'Amount (min)';
+  $handler->display->display_options['filters']['field_amount_value']['expose']['operator'] = 'field_amount_value_op';
+  $handler->display->display_options['filters']['field_amount_value']['expose']['identifier'] = 'field_amount_value';
+  $handler->display->display_options['filters']['field_amount_value']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['field_amount_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    3 => '3',
+    1 => 0,
+  );
+  /* Filter criterion: Content: Amount (field_amount) */
+  $handler->display->display_options['filters']['field_amount_value_1']['id'] = 'field_amount_value_1';
+  $handler->display->display_options['filters']['field_amount_value_1']['table'] = 'field_data_field_amount';
+  $handler->display->display_options['filters']['field_amount_value_1']['field'] = 'field_amount_value';
+  $handler->display->display_options['filters']['field_amount_value_1']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_amount_value_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_amount_value_1']['expose']['operator_id'] = 'field_amount_value_1_op';
+  $handler->display->display_options['filters']['field_amount_value_1']['expose']['label'] = 'Amount (max)';
+  $handler->display->display_options['filters']['field_amount_value_1']['expose']['operator'] = 'field_amount_value_1_op';
+  $handler->display->display_options['filters']['field_amount_value_1']['expose']['identifier'] = 'field_amount_value_1';
+  $handler->display->display_options['filters']['field_amount_value_1']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['field_amount_value_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    3 => '3',
+    1 => 0,
+  );
+  /* Filter criterion: Date: Date (node) */
+  $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['table'] = 'node';
+  $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['operator'] = '>=';
+  $handler->display->display_options['filters']['date_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['date_filter']['expose']['operator_id'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Value date (start)';
+  $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['date_filter']['form_type'] = 'date_text';
+  $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
+    'field_data_field_value_date.field_value_date_value' => 'field_data_field_value_date.field_value_date_value',
+  );
+  $handler->display->display_options['filters']['date_filter']['date_method'] = 'AND';
+  /* Filter criterion: Date: Date (node) */
+  $handler->display->display_options['filters']['date_filter_1']['id'] = 'date_filter_1';
+  $handler->display->display_options['filters']['date_filter_1']['table'] = 'node';
+  $handler->display->display_options['filters']['date_filter_1']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter_1']['operator'] = '<=';
+  $handler->display->display_options['filters']['date_filter_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['date_filter_1']['expose']['operator_id'] = 'date_filter_1_op';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'Value date (end)';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['date_filter_1']['form_type'] = 'date_text';
+  $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
+    'field_data_field_value_date.field_value_date_value' => 'field_data_field_value_date.field_value_date_value',
+  );
+  $handler->display->display_options['filters']['date_filter_1']['date_method'] = 'AND';
+  /* Filter criterion: Content: Transaction Category (field_transaction_category) */
+  $handler->display->display_options['filters']['field_transaction_category_tid']['id'] = 'field_transaction_category_tid';
+  $handler->display->display_options['filters']['field_transaction_category_tid']['table'] = 'field_data_field_transaction_category';
+  $handler->display->display_options['filters']['field_transaction_category_tid']['field'] = 'field_transaction_category_tid';
+  $handler->display->display_options['filters']['field_transaction_category_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_transaction_category_tid']['expose']['operator_id'] = 'field_transaction_category_tid_op';
+  $handler->display->display_options['filters']['field_transaction_category_tid']['expose']['label'] = 'Transaction Category';
+  $handler->display->display_options['filters']['field_transaction_category_tid']['expose']['operator'] = 'field_transaction_category_tid_op';
+  $handler->display->display_options['filters']['field_transaction_category_tid']['expose']['identifier'] = 'field_transaction_category_tid';
+  $handler->display->display_options['filters']['field_transaction_category_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_transaction_category_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['field_transaction_category_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_transaction_category_tid']['vocabulary'] = 'transaction_category';
+  $handler->display->display_options['filters']['field_transaction_category_tid']['hierarchy'] = 1;
+  /* Filter criterion: Content: Account (field_account) */
+  $handler->display->display_options['filters']['field_account_tid']['id'] = 'field_account_tid';
+  $handler->display->display_options['filters']['field_account_tid']['table'] = 'field_data_field_account';
+  $handler->display->display_options['filters']['field_account_tid']['field'] = 'field_account_tid';
+  $handler->display->display_options['filters']['field_account_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_account_tid']['expose']['operator_id'] = 'field_account_tid_op';
+  $handler->display->display_options['filters']['field_account_tid']['expose']['label'] = 'Account (field_account)';
+  $handler->display->display_options['filters']['field_account_tid']['expose']['operator'] = 'field_account_tid_op';
+  $handler->display->display_options['filters']['field_account_tid']['expose']['identifier'] = 'field_account_tid';
+  $handler->display->display_options['filters']['field_account_tid']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['field_account_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_account_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    3 => '3',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['field_account_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_account_tid']['vocabulary'] = 'account';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'admin/transactions';
+  $export['transactions'] = $view;
+
   return $export;
 }

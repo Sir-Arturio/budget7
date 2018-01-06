@@ -9,6 +9,8 @@ defaults:
 projects:
   drupal:
     version: "7.56"
+  better_exposed_filters:
+    version: "3.5"
   diff:
     version: "3.3"
   ctools:
