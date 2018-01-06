@@ -40,6 +40,7 @@ function transaction_import_feature_add_accounts(&$form, &$form_state, $form_id)
  * Implements hook_feeds_presave().
  *
  * - Adds the account term ID to the transactions selected at the import form.
+ * - Adds the current user to the imported transactions.
  * - Adds a transaction category to the transaction.
  *
  * @inheritdoc
@@ -53,6 +54,10 @@ function transaction_import_feature_feeds_presave(FeedsSource $source, $entity, 
   if ($account) {
     $wrapper->field_account->set($account);
   }
+
+  // Add current user's UID to the transaction.
+  global $user;
+  $wrapper->author->set($user);
 
   // Add transaction category based on the recommendation
   // but only if the transaction does not yet have a category.
