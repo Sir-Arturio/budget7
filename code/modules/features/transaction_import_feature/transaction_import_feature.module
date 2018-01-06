@@ -12,8 +12,29 @@ include_once 'transaction_import_feature.features.inc';
 function transaction_import_feature_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
     case 'feeds_import_form':
+      transaction_import_feature_hide_csv_options($form, $form_state, $form_id);
       transaction_import_feature_add_accounts($form, $form_state, $form_id);
       break;
+  }
+}
+
+/**
+ * Hide Feeds CSV Importer options.
+ *
+ * @param array $form
+ *   Drupal form element.
+ * @param array $form_state
+ *   Drupal form_state element.
+ * @param string $form_id
+ *   The id of the form.
+ */
+function transaction_import_feature_hide_csv_options(&$form, &$form_state, $form_id) {
+  foreach ($form['feeds']['FeedsCSVParser'] as &$item) {
+    if (!is_array($item)) {
+      continue;
+    }
+
+    $item['#access'] = FALSE;
   }
 }
 
