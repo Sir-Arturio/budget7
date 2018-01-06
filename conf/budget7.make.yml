@@ -35,3 +35,5 @@ projects:
     version: "2.0"
   views:
     version: "3.18"
+  views_bulk_operations:
+    version: "3.4"

@@ -18,6 +18,18 @@ function transaction_feature_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Implements hook_views_bulk_operations_form_alter().
+ */
+/*function transaction_feature_views_bulk_operations_form_alter(&$form, &$form_state, $vbo) {
+  if (!isset($vbo->options['vbo_operations']['action::views_bulk_operations_modify_action']['selected'])
+    || $vbo->view != 'transactions') {
+    return;
+  }
+
+  dsm($vbo);
+}*/
+
+/**
  * Provides the form_alter functionality for adding recommendations.
  *
  * @param array $form
