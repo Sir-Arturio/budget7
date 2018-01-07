@@ -11,6 +11,158 @@ function transaction_feature_views_default_views() {
   $export = array();
 
   $view = new view();
+  $view->name = 'distribution_by_category';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Distribution by category';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Distribution by category';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['group_by'] = TRUE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
+  $handler->display->display_options['exposed_form']['options']['bef'] = array(
+    'general' => array(
+      'input_required' => 0,
+      'text_input_required' => array(
+        'text_input_required' => array(
+          'value' => 'Select any filter and click on Apply to see results',
+          'format' => 'filtered_html',
+        ),
+      ),
+      'allow_secondary' => 0,
+      'secondary_label' => 'Advanced options',
+      'secondary_collapse_override' => '0',
+    ),
+    'field_value_date_value' => array(
+      'bef_format' => 'bef_datepicker',
+      'more_options' => array(
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+        'datepicker_options' => '',
+      ),
+    ),
+    'field_value_date_value_1' => array(
+      'bef_format' => 'bef_datepicker',
+      'more_options' => array(
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+        'datepicker_options' => '',
+      ),
+    ),
+  );
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_transaction_category' => 'field_transaction_category',
+    'field_amount' => 'field_amount',
+  );
+  $handler->display->display_options['style_options']['default'] = 'field_transaction_category';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_transaction_category' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_amount' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  /* Field: Content: Transaction Category */
+  $handler->display->display_options['fields']['field_transaction_category']['id'] = 'field_transaction_category';
+  $handler->display->display_options['fields']['field_transaction_category']['table'] = 'field_data_field_transaction_category';
+  $handler->display->display_options['fields']['field_transaction_category']['field'] = 'field_transaction_category';
+  $handler->display->display_options['fields']['field_transaction_category']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: SUM(Content: Amount) */
+  $handler->display->display_options['fields']['field_amount']['id'] = 'field_amount';
+  $handler->display->display_options['fields']['field_amount']['table'] = 'field_data_field_amount';
+  $handler->display->display_options['fields']['field_amount']['field'] = 'field_amount';
+  $handler->display->display_options['fields']['field_amount']['group_type'] = 'sum';
+  $handler->display->display_options['fields']['field_amount']['settings'] = array(
+    'thousand_separator' => '',
+    'decimal_separator' => '.',
+    'scale' => '2',
+    'prefix_suffix' => 1,
+  );
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'transaction' => 'transaction',
+  );
+  /* Filter criterion: Content: Value date (field_value_date) */
+  $handler->display->display_options['filters']['field_value_date_value']['id'] = 'field_value_date_value';
+  $handler->display->display_options['filters']['field_value_date_value']['table'] = 'field_data_field_value_date';
+  $handler->display->display_options['filters']['field_value_date_value']['field'] = 'field_value_date_value';
+  $handler->display->display_options['filters']['field_value_date_value']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_value_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_value_date_value']['expose']['operator_id'] = 'field_value_date_value_op';
+  $handler->display->display_options['filters']['field_value_date_value']['expose']['label'] = 'Value date (beginning)';
+  $handler->display->display_options['filters']['field_value_date_value']['expose']['operator'] = 'field_value_date_value_op';
+  $handler->display->display_options['filters']['field_value_date_value']['expose']['identifier'] = 'field_value_date_value';
+  $handler->display->display_options['filters']['field_value_date_value']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['field_value_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    3 => '3',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['field_value_date_value']['form_type'] = 'date_text';
+  /* Filter criterion: Content: Value date (field_value_date) */
+  $handler->display->display_options['filters']['field_value_date_value_1']['id'] = 'field_value_date_value_1';
+  $handler->display->display_options['filters']['field_value_date_value_1']['table'] = 'field_data_field_value_date';
+  $handler->display->display_options['filters']['field_value_date_value_1']['field'] = 'field_value_date_value';
+  $handler->display->display_options['filters']['field_value_date_value_1']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_value_date_value_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_value_date_value_1']['expose']['operator_id'] = 'field_value_date_value_1_op';
+  $handler->display->display_options['filters']['field_value_date_value_1']['expose']['label'] = 'Value date (end)';
+  $handler->display->display_options['filters']['field_value_date_value_1']['expose']['operator'] = 'field_value_date_value_1_op';
+  $handler->display->display_options['filters']['field_value_date_value_1']['expose']['identifier'] = 'field_value_date_value_1';
+  $handler->display->display_options['filters']['field_value_date_value_1']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['field_value_date_value_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    3 => '3',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['field_value_date_value_1']['form_type'] = 'date_text';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'admin/distribution-by-category';
+  $export['distribution_by_category'] = $view;
+
+  $view = new view();
   $view->name = 'relevant_categories';
   $view->description = '';
   $view->tag = 'default';
