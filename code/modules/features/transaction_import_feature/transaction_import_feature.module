@@ -92,20 +92,6 @@ function transaction_import_feature_feeds_presave(FeedsSource $source, $entity, 
       $wrapper->field_transaction_category->set($tid);
     }
   }
-
-  // Change GUID if it's date does not match with the entry date.
-  /*$guid = $entity->feeds_item->guid;
-  $guid = explode("/", $guid);
-  $guid_date = DateTime::createFromFormat("Ymd H:i:s", $guid[0] . "00:00:00");
-  $entry_date = DateTime::createFromFormat("Y-m-d H:i:s", $entity->field_entry_date['und'][0]['value']);
-  if ($guid_date != $entry_date) {
-    dsm(implode("/", $guid), 'old guid');
-    $guid[0] = $entry_date->format("Ymd");
-    dsm(implode("/", $guid), 'new guid');
-    $guid = implode("/", $guid);
-    $entity->feeds_item->guid = $guid;
-    $a = 1;
-  }*/
 }
 
 /**
