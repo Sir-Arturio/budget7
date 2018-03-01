@@ -46,15 +46,14 @@ function transaction_import_feature_feeds_importer_default() {
         'mappings' => array(
           0 => array(
             'source' => 'Arkistointitunnus',
-            'target' => 'guid',
-            'unique' => 1,
-            'language' => 'und',
-          ),
-          1 => array(
-            'source' => 'Arkistointitunnus',
             'target' => 'field_transaction_id',
             'unique' => FALSE,
             'language' => 'und',
+          ),
+          1 => array(
+            'source' => 'GENERATED GUID',
+            'target' => 'guid',
+            'unique' => 1,
           ),
           2 => array(
             'source' => 'Arvopäivä',

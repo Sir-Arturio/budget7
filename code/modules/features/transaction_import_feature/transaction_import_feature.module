@@ -94,7 +94,45 @@ function transaction_import_feature_feeds_presave(FeedsSource $source, $entity, 
   }
 }
 
+/**
+ * Implements hook_feeds_after_parse().
+ *
+ * - Changes GUID if it contains a wrong date (a bug in the OP's IDs).
+ *
+ * @inheritdoc
+ */
+function transaction_import_feature_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
+  foreach($result->items as &$item) {
+    // Load GUID and generate GUID and entry dates for checkup.
+    $guid = $item['arkistointitunnus'];
+    $guid_date = transaction_import_feature_get_date_from_transaction_id($guid);
+    $entry_date = DateTime::createFromFormat("d.m.Y H:i:s", $item['kirjauspäivä'] . "00:00:00");
 
+    // If the dates don't match, update GUID with the entry date.
+    if ($guid_date != $entry_date) {
+      $guid = explode('/', $guid);
+      $guid[0] = $entry_date->format("Ymd");
+      $guid = implode('/', $guid);
+    }
+
+    // Copy the GUID to the 'GENERATED GUID' source field.
+    $item['generated guid'] = $guid;
+  }
+}
+
+/**
+ * Get the date from the given transaction ID.
+ *
+ * @param $transaction_id
+ *  The transaction ID to get the date from.
+ *
+ * @return \DateTime
+ *  Transaction ID's date in as DateTime object.
+ */
+function transaction_import_feature_get_date_from_transaction_id($transaction_id) {
+  $transaction_id = explode("/", $transaction_id);
+  return DateTime::createFromFormat("Ymd H:i:s", $transaction_id[0] . "00:00:00");
+}
 
 /**
  * Fetch all accounts.
