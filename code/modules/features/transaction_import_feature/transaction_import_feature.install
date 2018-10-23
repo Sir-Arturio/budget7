@@ -25,6 +25,7 @@ function transaction_import_feature_update_7101(&$sandbox) {
 
   // Loop through all transactions.
   $fixed = 0;
+  $messages = '';
   foreach ($nodes as $node) {
     $guid = $feed_items[$node->nid];
     $transaction_id_date = transaction_import_feature_get_date_from_transaction_id($guid);
@@ -33,9 +34,11 @@ function transaction_import_feature_update_7101(&$sandbox) {
     // Fix GUID date if it does not match to entry date.
     if ($transaction_id_date != $entry_date) {
       $fixed++;
+      $messages .= $guid . " -> ";
       $guid = explode('/', $guid);
       $guid[0] = $entry_date->format("Ymd");
       $guid = implode('/', $guid);
+      $messages .= $guid ."\n";
       db_update('feeds_item')
         ->fields(array('guid' => $guid))
         ->condition('entity_type', 'node')
@@ -44,5 +47,5 @@ function transaction_import_feature_update_7101(&$sandbox) {
         ->execute();
     }
   }
-  return "Fixed " . $fixed . " transactions.";
+  return "Fixed " . $fixed . " transactions.\n" . $messages;
 }
